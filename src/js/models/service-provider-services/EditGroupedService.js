@@ -17,6 +17,9 @@ function Category (data, selectedSubCats) {
   this.id = ko.observable(data.key)
   this.name = ko.observable(data.name)
   this.isSelected = ko.observable(isSelected(data.key))
+
+  // TODO: Change to observe the real value from BE
+  this.appointmentOnly = ko.observable(false)
 }
 
 function EditServiceProviderService () {
@@ -43,6 +46,7 @@ function EditServiceProviderService () {
       if (self.serviceData !== undefined && self.categoryData !== undefined) {
         self.service(new GroupedService(self.serviceData))
         self.service().addListener(self)
+        console.log(self.serviceData)
 
         let category = self.categoryData.filter((c) => c.key === self.service().categoryId)[0]
         self.service().subCategories(category.subCategories.map((c) => new Category(c, self.serviceData.subCategories)))

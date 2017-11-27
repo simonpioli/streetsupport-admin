@@ -14,10 +14,11 @@ const getUrlParameter = require('../../get-url-parameter')
 
 import { categories } from '../../../data/generated/service-categories'
 
-function SubCat (key, name) {
+function SubCat (key, name, appointmentOnly) {
   var self = this
   self.key = key
   self.name = name
+  self.appointmentOnly = ko.observable(appointmentOnly)
   self.isSelected = ko.observable(false)
 }
 
@@ -57,7 +58,7 @@ function AddServiceProviderService () {
   })
 
   self.setAvailableSubCategories = function () {
-    self.subCategories(self.category().subCategories.map((sc) => new SubCat(sc.key, sc.name)))
+    self.subCategories(self.category().subCategories.map((sc) => new SubCat(sc.key, sc.name, sc.appointmentOnly)))
     self.allSubCatsSelected(false)
   }
 
@@ -96,6 +97,7 @@ function AddServiceProviderService () {
         'LocationDescription': self.locationDescription(),
         'Tags': tags,
         'Category': self.category().key,
+        // TODO: Refactor to match B/E Requirements for storing new attribute
         'SubCategories': self.subCategories()
           .filter((sc) => sc.isSelected() === true)
           .map((sc) => sc.key),

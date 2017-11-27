@@ -1,0 +1,17 @@
+.sub-categories {
+  &__item {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted rgba($brand-f, 0.4);
+  }
+
+  &__header {
+    display: block;
+    font-family: $font-headline;
+    font-weight: $font-headline-weight;
+  }
+
+  &__setting {
+    margin-right: 10px;
+  }
+}
